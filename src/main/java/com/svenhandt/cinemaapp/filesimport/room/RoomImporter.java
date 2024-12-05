@@ -1,13 +1,23 @@
 package com.svenhandt.cinemaapp.filesimport.room;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,14 +25,44 @@ import java.util.stream.Stream;
 @Component
 public class RoomImporter implements ApplicationListener<ContextRefreshedEvent> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(RoomImporter.class);
+
+    @Value("${cinemaapp.roomfiles.path}")
+    private String roomFilesPath;
+
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        try {
+            Set<String> roomFileNames = getRoomFileNames();
 
+            LOG.info("Found {} room files", roomFileNames);
+        }
+        catch(IOException | URISyntaxException ex) {
+            LOG.error(ex.getMessage(), ex);
+            throw new RuntimeException(ex);
+        }
     }
 
-    public Set<String> listFilesUsingFilesList(String dir) throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get(dir))) {
+    private void importRoomFiles(Set<String> roomFileNames) {
+        roomFileNames.forEach(roomFileName -> {
+
+        });
+    }
+
+    private Set<String> getRoomFileNames() throws URISyntaxException, IOException {
+        Set<String> fileNames = new HashSet<>();
+        Optional<URL> fileUrlOpt = Optional.ofNullable(getClass().getClassLoader().getResource(roomFilesPath));
+        if(fileUrlOpt.isPresent()) {
+            URL fileUrl = fileUrlOpt.get();
+            URI fileUri = fileUrl.toURI();
+            fileNames.addAll(listFilesUsingFilesList(fileUri));
+        }
+        return fileNames;
+    }
+
+    private Set<String> listFilesUsingFilesList(URI fileUri) throws IOException {
+        try (Stream<Path> stream = Files.walk(Paths.get(fileUri))) {
             return stream
                     .filter(file -> !Files.isDirectory(file))
                     .map(Path::getFileName)
