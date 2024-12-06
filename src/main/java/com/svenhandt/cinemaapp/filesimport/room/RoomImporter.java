@@ -1,5 +1,6 @@
 package com.svenhandt.cinemaapp.filesimport.room;
 
+import com.svenhandt.cinemaapp.core.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,18 @@ public class RoomImporter implements ApplicationListener<ContextRefreshedEvent> 
     @Value("${cinemaapp.roomfiles.path}")
     private String roomFilesPath;
 
+    private final RoomService roomService;
+
+    public RoomImporter(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         try {
             Set<String> roomFileNames = getRoomFileNames();
-
             LOG.info("Found {} room files", roomFileNames);
+            importRoomFiles(roomFileNames);
         }
         catch(IOException | URISyntaxException ex) {
             LOG.error(ex.getMessage(), ex);
@@ -45,9 +51,7 @@ public class RoomImporter implements ApplicationListener<ContextRefreshedEvent> 
     }
 
     private void importRoomFiles(Set<String> roomFileNames) {
-        roomFileNames.forEach(roomFileName -> {
-
-        });
+        roomFileNames.forEach(roomService::createRoomAndSeats);
     }
 
     private Set<String> getRoomFileNames() throws URISyntaxException, IOException {
