@@ -1,13 +1,11 @@
-package com.svenhandt.cinemaapp.filesimport.room;
+package com.svenhandt.cinemaapp.filesimport;
 
 import com.svenhandt.cinemaapp.core.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -24,21 +22,25 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class RoomImporter implements ApplicationListener<ContextRefreshedEvent> {
+public class FilesImporter implements ApplicationListener<ContextRefreshedEvent> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RoomImporter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FilesImporter.class);
 
     @Value("${cinemaapp.roomfiles.path}")
     private String roomFilesPath;
 
     private final RoomService roomService;
 
-    public RoomImporter(RoomService roomService) {
+    public FilesImporter(RoomService roomService) {
         this.roomService = roomService;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        importRoomFiles();
+    }
+
+    private void importRoomFiles() {
         try {
             Set<String> roomFileNames = getRoomFileNames();
             LOG.info("Found {} room files", roomFileNames);
@@ -73,6 +75,10 @@ public class RoomImporter implements ApplicationListener<ContextRefreshedEvent> 
                     .map(Path::toString)
                     .collect(Collectors.toSet());
         }
+    }
+
+    private void importPresentationFiles() {
+
     }
 
 }

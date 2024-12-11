@@ -6,6 +6,7 @@ import com.svenhandt.cinemaapp.persistence.entity.Room;
 import com.svenhandt.cinemaapp.persistence.repository.RoomRepository;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,14 +27,17 @@ public class RoomServiceImpl implements RoomService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RoomServiceImpl.class);
 
-    @Value("${cinemaapp.roomfiles.path}")
-    private String roomFilesPath;
+    private final String roomFilesPath;
 
     private final SeatService seatService;
     private final RoomRepository roomRepository;
     private final ResourceLoader resourceLoader;
 
-    public RoomServiceImpl(SeatService seatService, RoomRepository roomRepository, ResourceLoader resourceLoader) {
+    public RoomServiceImpl(@Value("${cinemaapp.roomfiles.path}") String roomFilesPath,
+                           SeatService seatService,
+                           RoomRepository roomRepository,
+                           ResourceLoader resourceLoader) {
+        this.roomFilesPath = roomFilesPath;
         this.seatService = seatService;
         this.roomRepository = roomRepository;
         this.resourceLoader = resourceLoader;
@@ -41,6 +45,7 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void createRoomAndSeats(String roomFileName) {
+        Validate.notEmpty(roomFileName);
         String roomName = getRoomName(roomFileName);
         if(roomAlreadyExists(roomName)) {
             LOG.info("Room with name {} already exists, so nothing to import", roomName);
@@ -79,7 +84,6 @@ public class RoomServiceImpl implements RoomService {
 
     private Room createRoom(String roomFileName) {
         String roomName = getRoomName(roomFileName);
-
         Room room = new Room();
         room.setName(roomName);
         LOG.info("create room {}", roomName);

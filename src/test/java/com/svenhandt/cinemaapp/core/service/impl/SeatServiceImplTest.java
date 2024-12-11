@@ -11,6 +11,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.verify;
 class SeatServiceImplTest {
 
     @Mock
-    private SeatRepository seatRepository;
+    private SeatRepository seatRepositoryMock;
 
     @Captor
     private ArgumentCaptor<List<Seat>> seatCaptor;
@@ -30,7 +31,7 @@ class SeatServiceImplTest {
     @BeforeEach
     void setup() {
         char seatMarkInFile = 'X';
-        seatServiceImpl = new SeatServiceImpl(seatMarkInFile, seatRepository);
+        seatServiceImpl = new SeatServiceImpl(seatMarkInFile, seatRepositoryMock);
     }
 
     @Test
@@ -39,7 +40,7 @@ class SeatServiceImplTest {
         Room roomForTest = getRoomForTest();
         List<Seat> expectedSeats = getExpectedSeats(roomForTest);
         seatServiceImpl.createSeats(roomForTest, seatFormationAsStringList);
-        verify(seatRepository).saveAll(seatCaptor.capture());
+        verify(seatRepositoryMock).saveAll(seatCaptor.capture());
         List<Seat> actualSeats = seatCaptor.getValue();
         assertThat(actualSeats).containsExactlyElementsOf(expectedSeats);
     }
@@ -48,13 +49,20 @@ class SeatServiceImplTest {
     void shouldThrowExceptionDueToNullRoom() {
         List<String> seatFormationAsStringList = getSeatFormationAsStringList();
         assertThatThrownBy(() -> seatServiceImpl.createSeats(null, seatFormationAsStringList))
-                .isNotInstanceOf(NullPointerException.class);
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void shouldThrowExceptionDueToEmptySeats() {
+        List<String> emptySeatFormationList = Collections.emptyList();
+        assertThatThrownBy(() -> seatServiceImpl.createSeats(null, emptySeatFormationList))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     private List<String> getSeatFormationAsStringList() {
         return List.of(
-                "   XXXX   \n",
-                " XXXXXXXX \n",
+                "   XXXX  ",
+                " XXXXXXXX",
                 "XXXXXXXXXX"
         );
     }
