@@ -1,5 +1,6 @@
 package com.svenhandt.cinemaapp.filesimport;
 
+import com.svenhandt.cinemaapp.core.service.PresentationService;
 import com.svenhandt.cinemaapp.core.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,14 +31,17 @@ public class FilesImporter implements ApplicationListener<ContextRefreshedEvent>
     private String roomFilesPath;
 
     private final RoomService roomService;
+    private final PresentationService presentationService;
 
-    public FilesImporter(RoomService roomService) {
+    public FilesImporter(RoomService roomService, PresentationService presentationService) {
         this.roomService = roomService;
+        this.presentationService = presentationService;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         importRoomFiles();
+        presentationService.initPresentations();
     }
 
     private void importRoomFiles() {
@@ -75,10 +79,6 @@ public class FilesImporter implements ApplicationListener<ContextRefreshedEvent>
                     .map(Path::toString)
                     .collect(Collectors.toSet());
         }
-    }
-
-    private void importPresentationFiles() {
-
     }
 
 }
