@@ -1,5 +1,6 @@
 package com.svenhandt.cinemaapp.core.service.impl;
 
+import com.svenhandt.cinemaapp.core.service.ResourceReadingService;
 import com.svenhandt.cinemaapp.persistence.entity.Room;
 import com.svenhandt.cinemaapp.persistence.repository.RoomRepository;
 import org.apache.commons.io.IOUtils;
@@ -39,6 +40,7 @@ class RoomServiceImplTest {
     private Resource roomFileResourceMock;
 
     private RoomServiceImpl roomServiceImpl;
+    private ResourceReadingService resourceReadingServiceImpl;
 
     private final String roomFileName = getRoomFileName();
     private final String seatsArrangementAsString = getSeatsArrangementAsString();
@@ -48,7 +50,8 @@ class RoomServiceImplTest {
     @BeforeEach
     void setup() {
         String roomFilePath = "rooms";
-        roomServiceImpl = new RoomServiceImpl(roomFilePath, seatServiceImplMock, roomRepositoryMock, resourceLoaderMock);
+        resourceReadingServiceImpl = new ResourceReadingServiceImpl(resourceLoaderMock);
+        roomServiceImpl = new RoomServiceImpl(roomFilePath, seatServiceImplMock, roomRepositoryMock, resourceReadingServiceImpl);
     }
 
     @Test

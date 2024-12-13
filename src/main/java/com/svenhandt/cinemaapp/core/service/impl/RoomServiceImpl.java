@@ -1,5 +1,6 @@
 package com.svenhandt.cinemaapp.core.service.impl;
 
+import com.svenhandt.cinemaapp.core.service.ResourceReadingService;
 import com.svenhandt.cinemaapp.core.service.RoomService;
 import com.svenhandt.cinemaapp.core.service.SeatService;
 import com.svenhandt.cinemaapp.persistence.entity.Room;
@@ -10,15 +11,8 @@ import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,16 +25,16 @@ public class RoomServiceImpl implements RoomService {
 
     private final SeatService seatService;
     private final RoomRepository roomRepository;
-    private final ResourceLoader resourceLoader;
+    private final ResourceReadingService resourceReadingService;
 
     public RoomServiceImpl(@Value("${cinemaapp.roomfiles.path}") String roomFilesPath,
                            SeatService seatService,
                            RoomRepository roomRepository,
-                           ResourceLoader resourceLoader) {
+                           ResourceReadingService resourceReadingService) {
         this.roomFilesPath = roomFilesPath;
         this.seatService = seatService;
         this.roomRepository = roomRepository;
-        this.resourceLoader = resourceLoader;
+        this.resourceReadingService = resourceReadingService;
     }
 
     @Override
@@ -63,18 +57,7 @@ public class RoomServiceImpl implements RoomService {
 
     private List<String> getSeatArrangementLines(String roomFileName) {
         String roomFilePath = "classpath:%s/%s".formatted(roomFilesPath, roomFileName);
-        Resource roomFileResource = resourceLoader.getResource(roomFilePath);
-        List<String> result = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(roomFileResource.getInputStream(), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.add(line);
-            }
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
-        return result;
+        return resourceReadingService.getLinesFromFile(roomFilePath);
     }
 
     private void createRoomAndSeats(String roomFileName, List<String> seatArrangementLines) {
