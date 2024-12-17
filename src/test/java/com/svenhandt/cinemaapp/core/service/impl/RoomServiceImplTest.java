@@ -40,7 +40,6 @@ class RoomServiceImplTest {
     private Resource roomFileResourceMock;
 
     private RoomServiceImpl roomServiceImpl;
-    private ResourceReadingService resourceReadingServiceImpl;
 
     private final String roomFileName = getRoomFileName();
     private final String seatsArrangementAsString = getSeatsArrangementAsString();
@@ -50,7 +49,7 @@ class RoomServiceImplTest {
     @BeforeEach
     void setup() {
         String roomFilePath = "rooms";
-        resourceReadingServiceImpl = new ResourceReadingServiceImpl(resourceLoaderMock);
+        ResourceReadingService resourceReadingServiceImpl = new ResourceReadingServiceImpl(resourceLoaderMock);
         roomServiceImpl = new RoomServiceImpl(roomFilePath, seatServiceImplMock, roomRepositoryMock, resourceReadingServiceImpl);
     }
 

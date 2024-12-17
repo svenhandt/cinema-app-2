@@ -3,6 +3,7 @@ package com.svenhandt.cinemaapp.core.service.impl;
 import com.svenhandt.cinemaapp.core.service.FilmService;
 import com.svenhandt.cinemaapp.persistence.entity.Film;
 import com.svenhandt.cinemaapp.persistence.repository.FilmRepository;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film getOrCreateFilm(String filmName) {
+        Validate.notEmpty(filmName);
         Film result;
         Optional<Film> filmOpt = filmRepository.findByName(filmName);
         if(filmOpt.isPresent()) {

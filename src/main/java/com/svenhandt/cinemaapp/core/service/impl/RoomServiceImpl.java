@@ -5,6 +5,7 @@ import com.svenhandt.cinemaapp.core.service.RoomService;
 import com.svenhandt.cinemaapp.core.service.SeatService;
 import com.svenhandt.cinemaapp.persistence.entity.Room;
 import com.svenhandt.cinemaapp.persistence.repository.RoomRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -48,6 +49,11 @@ public class RoomServiceImpl implements RoomService {
             List<String> seatArrangementLines = getSeatArrangementLines(roomFileName);
             createRoomAndSeats(roomFileName, seatArrangementLines);
         }
+    }
+
+    @Override
+    public Room getRoom(String roomName) {
+        return roomRepository.findByName(roomName).orElseThrow(() -> new EntityNotFoundException("Room with name %s not found".formatted(roomName)));
     }
 
     private boolean roomAlreadyExists(String roomName) {

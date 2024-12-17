@@ -4,14 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
-import java.time.temporal.TemporalField;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class TimeCalculationServiceImplTest {
+class TimeCalculationTest {
 
     @Test
     void testGetDateOfNextMonday() {
