@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -99,10 +100,24 @@ class PresentationServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionDueToInvalidInputLine() {
+    void shouldThrowExceptionDueToCompletelyInvalidInputLine() {
+        verifyExceptionThrownDueToInvalidInputLines(List.of("xxxxxxxxxxx"));
+    }
+
+    @Test
+    void shouldThrowExceptionDueToInvalidInputLine_filmCorrect_presentationsInvalid() {
+        verifyExceptionThrownDueToInvalidInputLines(List.of("Testfilm;xxxxxxxxxx"));
+    }
+
+    @Test
+    void shouldThrowExceptionDueToInvalidInputLine_filmCorrect_presentationNotInProperFormat() {
+        verifyExceptionThrownDueToInvalidInputLines(List.of("Testfilm;Pumuckl;Mo/17:00/Saal 1"));
+    }
+
+    private void verifyExceptionThrownDueToInvalidInputLines(List<String> inputLines) {
         when(resourceReadingServiceMock.getLinesFromFile(eq("classpath:%s".formatted(presentationFilePath))))
-                .thenReturn(getInvalidInputPresentationLine());
-        presentationServiceImpl.initPresentations();
+                .thenReturn(inputLines);
+        assertThatThrownBy(() -> presentationServiceImpl.initPresentations()).isInstanceOf(IllegalArgumentException.class);
     }
 
     private void prepareCommonMocks() {
@@ -161,12 +176,7 @@ class PresentationServiceImplTest {
     private List<String> getCorrectInputPresentationLines() {
         return List.of(
                 "Pumuckl;Mo/17:00/Saal 1/7.00,Di/17:00/Saal 1/8.00,Mi/14:00/Saal 2/7.50,Do/14:00/Saal 1/7.00,Fr/17:00/Saal 3/7.00,Sa/14:00/Saal 1/7.00,So/15:00/Saal 1/7.00"
-
         );
-    }
-
-    private List<String> getInvalidInputPresentationLine() {
-        return List.of("xxxxxxxxxxx");
     }
 
     private Film getExpectedFilm() {

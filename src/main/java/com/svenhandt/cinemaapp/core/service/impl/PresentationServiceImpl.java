@@ -11,6 +11,8 @@ import com.svenhandt.cinemaapp.persistence.repository.PresentationRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,8 @@ import java.util.regex.Pattern;
 
 @Service
 public class PresentationServiceImpl implements PresentationService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(PresentationServiceImpl.class);
 
     private static final char COLON = ':';
     private static final int TIME_OF_DAY_ARR_LENGTH = 2;
@@ -110,6 +114,7 @@ public class PresentationServiceImpl implements PresentationService {
         presentation.setStartTime(startTime);
         presentation.setRoom(presentationRoom);
         presentation.setPrice(price);
+        LOG.info("creating presentation {}", presentation);
         presentationRepository.save(presentation);
     }
 
