@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface PresentationRepository extends JpaRepository<Presentation, Integer> {
 
     Optional<Presentation> findByFilmAndRoomAndStartTimeAndPrice(Film film, Room room, LocalDateTime startTime, BigDecimal price);
+
+    List<Presentation> findByStartTimeIsBetweenOrderByStartTime(LocalDateTime timeRangeBegin, LocalDateTime timeRangeEnd);
 
 }

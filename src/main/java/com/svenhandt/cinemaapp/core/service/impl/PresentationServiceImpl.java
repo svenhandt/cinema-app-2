@@ -45,7 +45,7 @@ public class PresentationServiceImpl implements PresentationService {
     private static final int FILM_TO_PRESENTATION_ARR_LENGTH = 2;
     private static final int PRESENTATION_DATA_SIZE = 4;
 
-    private static final Map<String, DayOfWeek> weekDayMapping =
+    private static final Map<String, DayOfWeek> stringToWeekDayMapping =
             Map.of("Mo", DayOfWeek.MONDAY,
                     "Di", DayOfWeek.TUESDAY,
                     "Mi", DayOfWeek.WEDNESDAY,
@@ -76,6 +76,13 @@ public class PresentationServiceImpl implements PresentationService {
                 .getLinesFromFile("classpath:%s".formatted(presentationFilePath));
         Validate.notEmpty(presentationLines, "No presentations found");
         presentationLines.forEach(this::importFilmAndPresentations);
+    }
+
+    @Override
+    public List<Presentation> getPresentationsForCurrentWeek() {
+        LocalDateTime currentWeekMondayStartOfDay = getTimeForCurrentMondayStartOfDay();
+        LocalDateTime currentWeekSundayEndOfDay = getTimeForCurrentSundayEndOfDay();
+        return presentationRepository.findByStartTimeIsBetweenOrderByStartTime(currentWeekMondayStartOfDay, currentWeekSundayEndOfDay);
     }
 
     private void importFilmAndPresentations(String presentationLine) {
@@ -137,7 +144,7 @@ public class PresentationServiceImpl implements PresentationService {
 
     private LocalDateTime calculateLocalDateTime(String weekDayAsStr, String timeOfDayAsStr) {
         validateTimeInputParameters(weekDayAsStr, timeOfDayAsStr);
-        DayOfWeek dayOfWeek = Optional.ofNullable(weekDayMapping.get(weekDayAsStr)).orElseThrow(
+        DayOfWeek dayOfWeek = Optional.ofNullable(stringToWeekDayMapping.get(weekDayAsStr)).orElseThrow(
                 () -> new IllegalArgumentException("Invalid week day: " + weekDayAsStr));
         String[] timeOfDayStringArr = StringUtils.split(timeOfDayAsStr, COLON);
         validateTimeOfDayStringArr(timeOfDayStringArr);
@@ -179,8 +186,26 @@ public class PresentationServiceImpl implements PresentationService {
                 .with(TemporalAdjusters.next(dayOfWeek))
                 .with(ChronoField.CLOCK_HOUR_OF_DAY, hourOfDay)
                 .withMinute(minute)
-                .withSecond(0)
-                .withNano(0);
+                .withSecond(LocalDateTime.MIN.getSecond())
+                .withNano(LocalDateTime.MIN.getNano());
+    }
+
+    private LocalDateTime getTimeForCurrentMondayStartOfDay() {
+        return LocalDateTime.now()
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                .with(ChronoField.CLOCK_HOUR_OF_DAY, 24)
+                .withMinute(LocalDateTime.MIN.getMinute())
+                .withSecond(LocalDateTime.MIN.getSecond())
+                .withNano(LocalDateTime.MIN.getNano());
+    }
+
+    private LocalDateTime getTimeForCurrentSundayEndOfDay() {
+        return LocalDateTime.now()
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+                .with(ChronoField.CLOCK_HOUR_OF_DAY, LocalDateTime.MAX.getHour())
+                .withMinute(LocalDateTime.MAX.getMinute())
+                .withSecond(LocalDateTime.MAX.getSecond())
+                .withNano(LocalDateTime.MAX.getNano());
     }
 
 }

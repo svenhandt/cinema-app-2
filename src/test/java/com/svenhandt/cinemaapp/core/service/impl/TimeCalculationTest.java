@@ -11,15 +11,37 @@ class TimeCalculationTest {
 
     @Test
     void testGetDateOfNextMonday() {
-        LocalDateTime ld = LocalDateTime.now();
-        System.out.println(ld);
-        ld = ld.
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+        localDateTime = localDateTime.
                 with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .with(ChronoField.CLOCK_HOUR_OF_DAY, 15)
                 .withMinute(0)
                 .withSecond(0)
                 .withNano(0);
-        System.out.println(ld);
+        System.out.println(localDateTime);
+    }
+
+    @Test
+    void testGetDateOfMondayOfCurrentWeekFirstSecond() {
+        LocalDateTime localDateTime = LocalDateTime.now()
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                .with(ChronoField.CLOCK_HOUR_OF_DAY, 24)
+                .withMinute(LocalDateTime.MIN.getMinute())
+                .withSecond(LocalDateTime.MIN.getSecond())
+                .withNano(LocalDateTime.MIN.getNano());
+        System.out.println(localDateTime);
+    }
+
+    @Test
+    void testGetDateOfSundayOfCurrentWeekLastSecond() {
+        LocalDateTime localDateTime = LocalDateTime.now()
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+                .with(ChronoField.CLOCK_HOUR_OF_DAY, LocalDateTime.MAX.getHour())
+                .withMinute(LocalDateTime.MAX.getMinute())
+                .withSecond(LocalDateTime.MAX.getSecond())
+                .withNano(LocalDateTime.MAX.getNano());
+        System.out.println(localDateTime);
     }
 
 }
