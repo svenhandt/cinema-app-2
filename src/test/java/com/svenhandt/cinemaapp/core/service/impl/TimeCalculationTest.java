@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAdjusters;
 
@@ -42,6 +44,12 @@ class TimeCalculationTest {
                 .withSecond(LocalDateTime.MAX.getSecond())
                 .withNano(LocalDateTime.MAX.getNano());
         System.out.println(localDateTime);
+    }
+
+    @Test
+    void testGetLocalizedTimeAsString() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime.format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
 }
