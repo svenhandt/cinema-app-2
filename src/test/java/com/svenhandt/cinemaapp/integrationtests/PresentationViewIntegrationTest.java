@@ -1,13 +1,19 @@
 package com.svenhandt.cinemaapp.integrationtests;
 
-import com.svenhandt.cinemaapp.persistence.entity.Film;
-import com.svenhandt.cinemaapp.persistence.repository.FilmRepository;
-import com.svenhandt.cinemaapp.persistence.repository.PresentationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -17,19 +23,28 @@ class PresentationViewIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private FilmRepository filmRepository;
+    private ResourceLoader resourceLoader;
 
-    @Autowired
-    private PresentationRepository presentationRepository;
 
     @Test
-    void testRepositoryWork() {
-        Film film = new Film();
-        film.setName("Film 1");
-        filmRepository.save(film);
-        System.out.println(filmRepository.findByName("Film 1").get());
+    void shouldReturnPresentationsForWeek() throws Exception {
+        mockMvc.perform(get("/presentations"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(getResourceContentAsJsonString(getFilePath("presentationsForWeek.json")))
+        );
     }
 
-    
+    private String getResourceContentAsJsonString(String filePath) {
+        Resource roomFileResource = resourceLoader.getResource(filePath);
+        try {
+            return roomFileResource.getContentAsString(StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private String getFilePath(String fileName) {
+        return "classpath:json/%s".formatted(fileName);
+    }
 
 }

@@ -266,39 +266,40 @@ class PresentationServiceImplTest {
     }
 
     private LocalDateTime getExpectedMondayStarttime() {
-        return getNextDateTime(DayOfWeek.MONDAY, 17, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.MONDAY, 17);
     }
 
     private LocalDateTime getExpectedTuesdayStarttime() {
-        return getNextDateTime(DayOfWeek.TUESDAY, 17, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.TUESDAY, 17);
     }
 
     private LocalDateTime getExpectedWednesdayStarttime() {
-        return getNextDateTime(DayOfWeek.WEDNESDAY, 14, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.WEDNESDAY, 14);
     }
 
     private LocalDateTime getExpectedThursdayStarttime() {
-        return getNextDateTime(DayOfWeek.THURSDAY, 14, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.THURSDAY, 14);
     }
 
     private LocalDateTime getExpectedFridayStarttime() {
-        return getNextDateTime(DayOfWeek.FRIDAY, 17, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.FRIDAY, 17);
     }
 
     private LocalDateTime getExpectedSaturdayStarttime() {
-        return getNextDateTime(DayOfWeek.SATURDAY, 14, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.SATURDAY, 14);
     }
 
     private LocalDateTime getExpectedSundayStarttime() {
-        return getNextDateTime(DayOfWeek.SUNDAY, 15, 0);
+        return getNextDateTimeForCurrentWeek(DayOfWeek.SUNDAY, 15);
     }
 
-    private LocalDateTime getNextDateTime(DayOfWeek dayOfWeek, int hourOfDay, int minute) {
+    private LocalDateTime getNextDateTimeForCurrentWeek(DayOfWeek dayOfWeek, int hourOfDay) {
         return LocalDateTime
                 .now()
-                .with(TemporalAdjusters.next(dayOfWeek))
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                .with(TemporalAdjusters.nextOrSame(dayOfWeek))
                 .with(ChronoField.CLOCK_HOUR_OF_DAY, hourOfDay)
-                .withMinute(minute)
+                .withMinute(0)
                 .withSecond(0)
                 .withNano(0);
     }

@@ -1,0 +1,78 @@
+[
+  {
+    "id": 1,
+    "name": "Pumuckl",
+    "presentationsPerDay": [
+      {
+        "dayOfWeek": "Mo",
+        "presentations": [
+          {
+            "id": 1,
+            "startTime": "17:00",
+            "price": 7
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "Di",
+        "presentations": [
+          {
+            "id": 2,
+            "startTime": "17:00",
+            "price": 8
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "Mi",
+        "presentations": [
+          {
+            "id": 3,
+            "startTime": "14:00",
+            "price": 7.5
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "Do",
+        "presentations": [
+          {
+            "id": 4,
+            "startTime": "14:00",
+            "price": 7
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "Fr",
+        "presentations": [
+          {
+            "id": 5,
+            "startTime": "17:00",
+            "price": 7
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "Sa",
+        "presentations": [
+          {
+            "id": 6,
+            "startTime": "14:00",
+            "price": 7
+          }
+        ]
+      },
+      {
+        "dayOfWeek": "So",
+        "presentations": [
+          {
+            "id": 7,
+            "startTime": "15:00",
+            "price": 7
+          }
+        ]
+      }
+    ]
+  }
+]

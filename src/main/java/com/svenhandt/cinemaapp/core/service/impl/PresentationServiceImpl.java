@@ -150,7 +150,7 @@ public class PresentationServiceImpl implements PresentationService {
         validateTimeOfDayStringArr(timeOfDayStringArr);
         int hourOfDay = Integer.parseInt(timeOfDayStringArr[0]);
         int minute = Integer.parseInt(timeOfDayStringArr[1]);
-        return getNextDateTime(dayOfWeek, hourOfDay, minute);
+        return getNextDateTimeForCurrentWeek(dayOfWeek, hourOfDay, minute);
     }
 
     private void validateTimeInputParameters(String weekDayAsStr, String timeOfDayAsStr) {
@@ -180,10 +180,11 @@ public class PresentationServiceImpl implements PresentationService {
         Validate.isTrue(minute >= 0 && minute <= 59);
     }
 
-    private LocalDateTime getNextDateTime(DayOfWeek dayOfWeek, int hourOfDay, int minute) {
+    private LocalDateTime getNextDateTimeForCurrentWeek(DayOfWeek dayOfWeek, int hourOfDay, int minute) {
         return LocalDateTime
                 .now()
-                .with(TemporalAdjusters.next(dayOfWeek))
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+                .with(TemporalAdjusters.nextOrSame(dayOfWeek))
                 .with(ChronoField.CLOCK_HOUR_OF_DAY, hourOfDay)
                 .withMinute(minute)
                 .withSecond(LocalDateTime.MIN.getSecond())
