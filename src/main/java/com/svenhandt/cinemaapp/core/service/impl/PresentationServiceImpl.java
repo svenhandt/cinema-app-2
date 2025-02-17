@@ -85,6 +85,12 @@ public class PresentationServiceImpl implements PresentationService {
         return presentationRepository.findByStartTimeIsBetweenOrderByStartTime(currentWeekMondayStartOfDay, currentWeekSundayEndOfDay);
     }
 
+    @Override
+    public Presentation getPresentationById(int id) {
+        return presentationRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No presentation found for id: %d".formatted(id)));
+    }
+
     private void importFilmAndPresentations(String presentationLine) {
         String[] filmToPresentationsArr = StringUtils.split(presentationLine, SEMICOLON);
         Validate.isTrue(FILM_TO_PRESENTATION_ARR_LENGTH == filmToPresentationsArr.length, "File line is in wrong format!");

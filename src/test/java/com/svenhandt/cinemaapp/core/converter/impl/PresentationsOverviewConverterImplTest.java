@@ -24,7 +24,7 @@ class PresentationsOverviewConverterImplTest {
 
     @BeforeEach
     void setup() {
-        converterImpl = new PresentationsOverviewConverterImpl();
+        converterImpl = new PresentationsOverviewConverterImpl(new PresentationStartTimeConverter());
     }
 
     @Test

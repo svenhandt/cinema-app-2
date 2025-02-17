@@ -42,6 +42,11 @@ public class SeatServiceImpl implements SeatService {
         seatRepository.saveAll(seatsToSave);
     }
 
+    @Override
+    public List<Seat> getSeatsByRoom(Room room) {
+        return seatRepository.findByRoom(room);
+    }
+
     private List<Seat> createSeatsForSeatRow(Room room, int seatRow, String seatLine) {
         List<Seat> seatsToSave = new ArrayList<>();
         for(int i = 1; i <= StringUtils.length(seatLine); i++) {

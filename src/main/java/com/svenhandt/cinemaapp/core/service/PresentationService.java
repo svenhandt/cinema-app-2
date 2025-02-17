@@ -9,4 +9,6 @@ public interface PresentationService {
     void initPresentations();
 
     List<Presentation> getPresentationsForCurrentWeek();
+
+    Presentation getPresentationById(int id);
 }

@@ -9,22 +9,16 @@ import com.svenhandt.cinemaapp.persistence.entity.Presentation;
 import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
 public class PresentationsOverviewConverterImpl implements PresentationsOverviewConverter {
 
-    private static final Map<DayOfWeek, String> weekDayToStringMapping =
-            Map.of(DayOfWeek.MONDAY, "Mo",
-                    DayOfWeek.TUESDAY, "Di",
-                    DayOfWeek.WEDNESDAY, "Mi",
-                    DayOfWeek.THURSDAY, "Do",
-                    DayOfWeek.FRIDAY, "Fr",
-                    DayOfWeek.SATURDAY, "Sa",
-                    DayOfWeek.SUNDAY, "So");
+    private final PresentationStartTimeConverter presentationStartTimeConverter;
+
+    PresentationsOverviewConverterImpl(PresentationStartTimeConverter presentationStartTimeConverter) {
+        this.presentationStartTimeConverter = presentationStartTimeConverter;
+    }
 
     @Override
     public List<FilmDto> getPresentationsOverview(List<Presentation> presentations) {
@@ -60,9 +54,7 @@ public class PresentationsOverviewConverterImpl implements PresentationsOverview
 
     private PresentationsPerDayDto getPresentationsPerDayDto(Presentation presentation, FilmDto filmDto) {
         List<PresentationsPerDayDto> presentationsPerDayDtoList = getForFilmDto(filmDto);
-        LocalDateTime startTime = presentation.getStartTime();
-        DayOfWeek dayOfWeek = startTime.getDayOfWeek();
-        String dayOfWeekAsStr = weekDayToStringMapping.get(dayOfWeek);
+        String dayOfWeekAsStr = presentationStartTimeConverter.getDayOfWeekAsStrFormatted(presentation);
         Optional<PresentationsPerDayDto> presentationsPerDayDtoOpt = presentationsPerDayDtoList.
                 stream().
                 filter(presentationsPerDayDto -> dayOfWeekAsStr.equals(presentationsPerDayDto.getDayOfWeek())).findFirst();
@@ -90,13 +82,8 @@ public class PresentationsOverviewConverterImpl implements PresentationsOverview
         PresentationDto presentationDto = new PresentationDto();
         presentationDto.setId(presentation.getId());
         presentationDto.setPrice(presentation.getPrice());
-        presentationDto.setStartTime(getStartTimeAsStrFormatted(presentation));
+        presentationDto.setStartTime(presentationStartTimeConverter.getStartTimeAsStrFormatted(presentation));
         presentationsPerDayDto.getPresentations().add(presentationDto);
-    }
-
-    private String getStartTimeAsStrFormatted(Presentation presentation) {
-        LocalDateTime startTime = presentation.getStartTime();
-        return startTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
 }
