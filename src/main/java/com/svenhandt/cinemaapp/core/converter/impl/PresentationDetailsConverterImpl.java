@@ -6,6 +6,7 @@ import com.svenhandt.cinemaapp.core.service.SeatService;
 import com.svenhandt.cinemaapp.persistence.entity.*;
 import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class PresentationDetailsConverterImpl implements PresentationDetailsConv
 
     @Override
     public PresentationDto getPresentationDto(Presentation presentation) {
+        Validate.notNull(presentation, "presentation must not be null");
         PresentationDto presentationDto = new PresentationDto();
         presentationDto.setId(presentation.getId());
         presentationDto.setPrice(presentation.getPrice());
@@ -59,7 +61,8 @@ public class PresentationDetailsConverterImpl implements PresentationDetailsConv
     }
 
     private List<SeatRowDto> getSeatRows(int presentationId, Room room) {
-        List<Seat> seatsByRoom = seatService.getSeatsByRoom(room);
+        List<Seat> seatsByRoom = seatService.getSeatsByRoomOrderedByRowAndNumber(room);
+        Validate.notEmpty(seatsByRoom, "seats for room must not be empty");
         Map<Integer, List<Seat>> seatsGroupedByRows = seatsByRoom.stream().collect(groupingBy(Seat::getSeatRow));
         int maxCountOfSeatsInRow = getMaxCountOfSeatsInRow(seatsGroupedByRows);
         return getSeatRows(presentationId, seatsGroupedByRows, maxCountOfSeatsInRow);

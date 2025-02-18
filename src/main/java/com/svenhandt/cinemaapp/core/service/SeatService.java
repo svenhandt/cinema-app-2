@@ -8,5 +8,5 @@ import java.util.List;
 public interface SeatService {
     void createSeats(Room room, List<String> seatArrangementLines);
 
-    List<Seat> getSeatsByRoom(Room room);
+    List<Seat> getSeatsByRoomOrderedByRowAndNumber(Room room);
 }

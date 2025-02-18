@@ -3,24 +3,20 @@ package com.svenhandt.cinemaapp.core.converter.impl;
 import com.svenhandt.cinemaapp.core.dto.*;
 import com.svenhandt.cinemaapp.core.service.SeatService;
 import com.svenhandt.cinemaapp.persistence.entity.*;
-import org.apache.commons.lang3.IntegerRange;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
@@ -44,11 +40,26 @@ class PresentationDetailsConverterImplTest {
     @Test
     void shouldConvertPresentationCorrectly() {
         Presentation givenPresentation = getGivenPresentation();
-        when(seatService.getSeatsByRoom(eq(givenPresentation.getRoom())))
+        when(seatService.getSeatsByRoomOrderedByRowAndNumber(eq(givenPresentation.getRoom())))
                 .thenReturn(getSeatsForGivenPresentation(givenPresentation));
         PresentationDto actualPresentationDto = presentationDetailsConverter.getPresentationDto(givenPresentation);
         assertThat(actualPresentationDto).isNotNull();
         assertThat(actualPresentationDto).isEqualTo(getExpectedPresentationDto());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenPresentationIsNull() {
+        assertThatThrownBy(() -> presentationDetailsConverter.getPresentationDto(null))
+            .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    void shouldThrowExceptionIfSeatsForRoomAreEmpty() {
+        Presentation givenPresentation = getGivenPresentation();
+        when(seatService.getSeatsByRoomOrderedByRowAndNumber(eq(givenPresentation.getRoom())))
+                .thenReturn(Collections.emptyList());
+        assertThatThrownBy(() -> presentationDetailsConverter.getPresentationDto(givenPresentation))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     private Presentation getGivenPresentation() {

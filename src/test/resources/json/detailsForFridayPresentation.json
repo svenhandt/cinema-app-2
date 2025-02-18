@@ -1,0 +1,237 @@
+{
+  "id": 5,
+  "filmName": "Pumuckl",
+  "startTime": "Fr, 17:00",
+  "price": 7.0,
+  "room": {
+    "id": 3,
+    "name": "Saal 3",
+    "seatRows": [
+      {
+        "row": 1,
+        "seats": [
+          {
+            "id": "",
+            "seatNumber": 1,
+            "status": "EMPTY_SPACE"
+          },
+          {
+            "id": "",
+            "seatNumber": 2,
+            "status": "EMPTY_SPACE"
+          },
+          {
+            "id": "3_seat_1_3",
+            "seatNumber": 3,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_4",
+            "seatNumber": 4,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_5",
+            "seatNumber": 5,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_6",
+            "seatNumber": 6,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_7",
+            "seatNumber": 7,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_8",
+            "seatNumber": 8,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_9",
+            "seatNumber": 9,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_10",
+            "seatNumber": 10,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_11",
+            "seatNumber": 11,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_1_12",
+            "seatNumber": 12,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "",
+            "seatNumber": 13,
+            "status": "EMPTY_SPACE"
+          },
+          {
+            "id": "",
+            "seatNumber": 14,
+            "status": "EMPTY_SPACE"
+          }
+        ]
+      },
+      {
+        "row": 2,
+        "seats": [
+          {
+            "id": "",
+            "seatNumber": 1,
+            "status": "EMPTY_SPACE"
+          },
+          {
+            "id": "3_seat_2_2",
+            "seatNumber": 2,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_3",
+            "seatNumber": 3,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_4",
+            "seatNumber": 4,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_5",
+            "seatNumber": 5,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_6",
+            "seatNumber": 6,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_7",
+            "seatNumber": 7,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_8",
+            "seatNumber": 8,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_9",
+            "seatNumber": 9,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_10",
+            "seatNumber": 10,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_11",
+            "seatNumber": 11,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_12",
+            "seatNumber": 12,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_2_13",
+            "seatNumber": 13,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "",
+            "seatNumber": 14,
+            "status": "EMPTY_SPACE"
+          }
+        ]
+      },
+      {
+        "row": 3,
+        "seats": [
+          {
+            "id": "3_seat_3_1",
+            "seatNumber": 1,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_2",
+            "seatNumber": 2,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_3",
+            "seatNumber": 3,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_4",
+            "seatNumber": 4,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_5",
+            "seatNumber": 5,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_6",
+            "seatNumber": 6,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_7",
+            "seatNumber": 7,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_8",
+            "seatNumber": 8,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_9",
+            "seatNumber": 9,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_10",
+            "seatNumber": 10,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_11",
+            "seatNumber": 11,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_12",
+            "seatNumber": 12,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_13",
+            "seatNumber": 13,
+            "status": "AVAILABLE"
+          },
+          {
+            "id": "3_seat_3_14",
+            "seatNumber": 14,
+            "status": "AVAILABLE"
+          }
+        ]
+      }
+    ]
+  }
+}

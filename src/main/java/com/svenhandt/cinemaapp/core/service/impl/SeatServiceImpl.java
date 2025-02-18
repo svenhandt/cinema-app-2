@@ -43,8 +43,8 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public List<Seat> getSeatsByRoom(Room room) {
-        return seatRepository.findByRoom(room);
+    public List<Seat> getSeatsByRoomOrderedByRowAndNumber(Room room) {
+        return seatRepository.findByRoomOrderedBySeats(room);
     }
 
     private List<Seat> createSeatsForSeatRow(Room room, int seatRow, String seatLine) {

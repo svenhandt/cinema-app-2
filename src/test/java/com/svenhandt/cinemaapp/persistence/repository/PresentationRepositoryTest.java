@@ -7,8 +7,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class PresentationRepositoryTest {
 
     private final LocalDateTime sampleStartTime1 = LocalDateTime.of(2024, 12, 17, 18, 0, 0);
@@ -78,13 +78,6 @@ class PresentationRepositoryTest {
         assertThat(foundPresentations).isEmpty();
     }
 
-    @AfterEach
-    void tearDown() {
-        presentationRepository.deleteAll();
-        roomRepository.deleteAll();
-        filmRepository.deleteAll();
-    }
-
     private void createSampleFilm() {
         sampleFilm = new Film();
         sampleFilm.setName("Film 1");
@@ -109,6 +102,13 @@ class PresentationRepositoryTest {
         samplePresentation.setStartTime(startTime);
         samplePresentation.setPrice(samplePrice);
         presentationRepository.save(samplePresentation);
+    }
+
+    @AfterEach
+    void tearDown() {
+        presentationRepository.deleteAll();
+        roomRepository.deleteAll();
+        filmRepository.deleteAll();
     }
 
 }

@@ -8,7 +8,6 @@ import com.svenhandt.cinemaapp.persistence.repository.FilmRepository;
 import com.svenhandt.cinemaapp.persistence.repository.PresentationRepository;
 import com.svenhandt.cinemaapp.persistence.repository.RoomRepository;
 import com.svenhandt.cinemaapp.persistence.repository.SeatRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +25,7 @@ class VerifyFileImportsIntegrationTest {
     private static final int EXPECTED_ROOMS_COUNT = 3;
     private static final int SEATS_COUNT_ROOM_1 = 13;
     private static final int SEATS_COUNT_ROOM_2 = 9;
-    private static final int SEATS_COUNT_ROOM_3 = 12;
+    private static final int SEATS_COUNT_ROOM_3 = 36;
 
     @Autowired
     private FilmRepository filmRepository;
@@ -54,9 +53,9 @@ class VerifyFileImportsIntegrationTest {
         Room room1 = expectedRooms.get(0);
         Room room2 = expectedRooms.get(1);
         Room room3 = expectedRooms.get(2);
-        List<Seat> seatsForRoom1 = seatRepository.findByRoom(room1);
-        List<Seat> seatsForRoom2 = seatRepository.findByRoom(room2);
-        List<Seat> seatsForRoom3 = seatRepository.findByRoom(room3);
+        List<Seat> seatsForRoom1 = seatRepository.findByRoomOrderedBySeats(room1);
+        List<Seat> seatsForRoom2 = seatRepository.findByRoomOrderedBySeats(room2);
+        List<Seat> seatsForRoom3 = seatRepository.findByRoomOrderedBySeats(room3);
         assertThat(seatsForRoom1.size()).isEqualTo(SEATS_COUNT_ROOM_1);
         assertThat(seatsForRoom2.size()).isEqualTo(SEATS_COUNT_ROOM_2);
         assertThat(seatsForRoom3.size()).isEqualTo(SEATS_COUNT_ROOM_3);
