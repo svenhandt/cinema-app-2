@@ -9,6 +9,8 @@ public class SeatDto {
 
     private int seatNumber;
 
+    private String seatInfo;
+
     private SeatDtoStatus status;
 
 }

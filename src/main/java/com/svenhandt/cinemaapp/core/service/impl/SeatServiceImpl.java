@@ -49,22 +49,25 @@ public class SeatServiceImpl implements SeatService {
 
     private List<Seat> createSeatsForSeatRow(Room room, int seatRow, String seatLine) {
         List<Seat> seatsToSave = new ArrayList<>();
+        int seatNumberVisibleToVisitor = 0;
         for(int i = 1; i <= StringUtils.length(seatLine); i++) {
             char charInSeatLine = seatLine.charAt(i - 1);
             if(seatMarkInFile == charInSeatLine) {
-                seatsToSave.add(createSeat(room, seatRow, i));
+                seatNumberVisibleToVisitor += 1;
+                seatsToSave.add(createSeat(room, seatRow, i, seatNumberVisibleToVisitor));
             }
         }
         return seatsToSave;
     }
 
-    private Seat createSeat(Room room, int seatRow, int seatNumber) {
+    private Seat createSeat(Room room, int seatRow, int seatNumber, int seatNumberVisibleToVisitor) {
         String seatId = "%d_seat_%d_%s".formatted(room.getId(), seatRow, seatNumber);
         LOG.info("creating seat {}", seatId);
         Seat seat = new Seat();
         seat.setId(seatId);
         seat.setSeatRow(seatRow);
         seat.setSeatNumber(seatNumber);
+        seat.setSeatInfo("Reihe %d, Platz %d".formatted(seatRow, seatNumberVisibleToVisitor));
         seat.setRoom(room);
         return seat;
     }

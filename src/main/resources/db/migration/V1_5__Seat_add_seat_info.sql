@@ -1,0 +1,7 @@
+
+ALTER TABLE seat
+ADD COLUMN seat_info VARCHAR(255);
+
+
+
+

@@ -76,36 +76,37 @@ class SeatServiceImplTest {
 
     private List<Seat> getExpectedSeats(Room room) {
         return List.of(
-                getExpectedSeat("1_seat_1_4", 1 ,4, room ),
-                getExpectedSeat("1_seat_1_5", 1 ,5, room ),
-                getExpectedSeat("1_seat_1_6", 1 ,6, room ),
-                getExpectedSeat("1_seat_1_7", 1 ,7, room ),
-                getExpectedSeat("1_seat_2_2", 2 ,2, room ),
-                getExpectedSeat("1_seat_2_3", 2 ,3, room ),
-                getExpectedSeat("1_seat_2_4", 2 ,4, room ),
-                getExpectedSeat("1_seat_2_5", 2 ,5, room ),
-                getExpectedSeat("1_seat_2_6", 2 ,6, room ),
-                getExpectedSeat("1_seat_2_7", 2 ,7, room ),
-                getExpectedSeat("1_seat_2_8", 2 ,8, room ),
-                getExpectedSeat("1_seat_2_9", 2 ,9, room ),
-                getExpectedSeat("1_seat_3_1", 3 ,1, room ),
-                getExpectedSeat("1_seat_3_2", 3 ,2, room ),
-                getExpectedSeat("1_seat_3_3", 3 ,3, room ),
-                getExpectedSeat("1_seat_3_4", 3 ,4, room ),
-                getExpectedSeat("1_seat_3_5", 3 ,5, room ),
-                getExpectedSeat("1_seat_3_6", 3 ,6, room ),
-                getExpectedSeat("1_seat_3_7", 3 ,7, room ),
-                getExpectedSeat("1_seat_3_8", 3 ,8, room ),
-                getExpectedSeat("1_seat_3_9", 3 ,9, room ),
-                getExpectedSeat("1_seat_3_10", 3 ,10, room )
+                getExpectedSeat("1_seat_1_4", 1 ,4, "Reihe 1, Platz 1" ,room ),
+                getExpectedSeat("1_seat_1_5", 1 ,5, "Reihe 1, Platz 2", room ),
+                getExpectedSeat("1_seat_1_6", 1 ,6, "Reihe 1, Platz 3", room ),
+                getExpectedSeat("1_seat_1_7", 1 ,7, "Reihe 1, Platz 4", room ),
+                getExpectedSeat("1_seat_2_2", 2 ,2, "Reihe 2, Platz 1", room ),
+                getExpectedSeat("1_seat_2_3", 2 ,3, "Reihe 2, Platz 2", room ),
+                getExpectedSeat("1_seat_2_4", 2 ,4, "Reihe 2, Platz 3", room ),
+                getExpectedSeat("1_seat_2_5", 2 ,5, "Reihe 2, Platz 4", room ),
+                getExpectedSeat("1_seat_2_6", 2 ,6, "Reihe 2, Platz 5", room ),
+                getExpectedSeat("1_seat_2_7", 2 ,7, "Reihe 2, Platz 6", room ),
+                getExpectedSeat("1_seat_2_8", 2 ,8, "Reihe 2, Platz 7", room ),
+                getExpectedSeat("1_seat_2_9", 2 ,9, "Reihe 2, Platz 8", room ),
+                getExpectedSeat("1_seat_3_1", 3 ,1, "Reihe 3, Platz 1", room ),
+                getExpectedSeat("1_seat_3_2", 3 ,2, "Reihe 3, Platz 2", room ),
+                getExpectedSeat("1_seat_3_3", 3 ,3, "Reihe 3, Platz 3", room ),
+                getExpectedSeat("1_seat_3_4", 3 ,4, "Reihe 3, Platz 4", room ),
+                getExpectedSeat("1_seat_3_5", 3 ,5, "Reihe 3, Platz 5", room ),
+                getExpectedSeat("1_seat_3_6", 3 ,6, "Reihe 3, Platz 6", room ),
+                getExpectedSeat("1_seat_3_7", 3 ,7, "Reihe 3, Platz 7", room ),
+                getExpectedSeat("1_seat_3_8", 3 ,8, "Reihe 3, Platz 8", room ),
+                getExpectedSeat("1_seat_3_9", 3 ,9, "Reihe 3, Platz 9", room ),
+                getExpectedSeat("1_seat_3_10", 3 ,10, "Reihe 3, Platz 10", room )
         );
     }
 
-    private Seat getExpectedSeat(String id, int seatRow, int seatNumber, Room room) {
+    private Seat getExpectedSeat(String id, int seatRow, int seatNumber, String seatInfo, Room room) {
         Seat seat = new Seat();
         seat.setId(id);
         seat.setSeatRow(seatRow);
         seat.setSeatNumber(seatNumber);
+        seat.setSeatInfo(seatInfo);
         seat.setRoom(room);
         return seat;
     }

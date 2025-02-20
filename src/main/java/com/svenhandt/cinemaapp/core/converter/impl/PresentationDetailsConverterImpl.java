@@ -100,6 +100,7 @@ public class PresentationDetailsConverterImpl implements PresentationDetailsConv
         SeatDto seatDto = new SeatDto();
         seatDto.setId(seat.getId());
         seatDto.setSeatNumber(seat.getSeatNumber());
+        seatDto.setSeatInfo(seat.getSeatInfo());
         seatDto.setStatus(getSeatDtoStatus(presentationId, seat));
         return seatDto;
     }
@@ -136,6 +137,7 @@ public class PresentationDetailsConverterImpl implements PresentationDetailsConv
             SeatDto seatDto = new SeatDto();
             seatDto.setId(StringUtils.EMPTY);
             seatDto.setSeatNumber(i);
+            seatDto.setSeatInfo(StringUtils.EMPTY);
             seatDto.setStatus(SeatDtoStatus.EMPTY_SPACE);
             mutableListOfSeatDtos.add(i - 1, seatDto);
         }

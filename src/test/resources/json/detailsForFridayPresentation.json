@@ -13,71 +13,85 @@
           {
             "id": "",
             "seatNumber": 1,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           },
           {
             "id": "",
             "seatNumber": 2,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           },
           {
             "id": "3_seat_1_3",
             "seatNumber": 3,
+            "seatInfo": "Reihe 1, Platz 1",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_4",
             "seatNumber": 4,
+            "seatInfo": "Reihe 1, Platz 2",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_5",
             "seatNumber": 5,
+            "seatInfo": "Reihe 1, Platz 3",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_6",
             "seatNumber": 6,
+            "seatInfo": "Reihe 1, Platz 4",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_7",
             "seatNumber": 7,
+            "seatInfo": "Reihe 1, Platz 5",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_8",
             "seatNumber": 8,
+            "seatInfo": "Reihe 1, Platz 6",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_9",
             "seatNumber": 9,
+            "seatInfo": "Reihe 1, Platz 7",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_10",
             "seatNumber": 10,
+            "seatInfo": "Reihe 1, Platz 8",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_11",
             "seatNumber": 11,
+            "seatInfo": "Reihe 1, Platz 9",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_1_12",
             "seatNumber": 12,
+            "seatInfo": "Reihe 1, Platz 10",
             "status": "AVAILABLE"
           },
           {
             "id": "",
             "seatNumber": 13,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           },
           {
             "id": "",
             "seatNumber": 14,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           }
         ]
@@ -88,71 +102,85 @@
           {
             "id": "",
             "seatNumber": 1,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           },
           {
             "id": "3_seat_2_2",
             "seatNumber": 2,
+            "seatInfo": "Reihe 2, Platz 1",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_3",
             "seatNumber": 3,
+            "seatInfo": "Reihe 2, Platz 2",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_4",
             "seatNumber": 4,
+            "seatInfo": "Reihe 2, Platz 3",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_5",
             "seatNumber": 5,
+            "seatInfo": "Reihe 2, Platz 4",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_6",
             "seatNumber": 6,
+            "seatInfo": "Reihe 2, Platz 5",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_7",
             "seatNumber": 7,
+            "seatInfo": "Reihe 2, Platz 6",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_8",
             "seatNumber": 8,
+            "seatInfo": "Reihe 2, Platz 7",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_9",
             "seatNumber": 9,
+            "seatInfo": "Reihe 2, Platz 8",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_10",
             "seatNumber": 10,
+            "seatInfo": "Reihe 2, Platz 9",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_11",
             "seatNumber": 11,
+            "seatInfo": "Reihe 2, Platz 10",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_12",
             "seatNumber": 12,
+            "seatInfo": "Reihe 2, Platz 11",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_2_13",
             "seatNumber": 13,
+            "seatInfo": "Reihe 2, Platz 12",
             "status": "AVAILABLE"
           },
           {
             "id": "",
             "seatNumber": 14,
+            "seatInfo": "",
             "status": "EMPTY_SPACE"
           }
         ]
@@ -163,71 +191,85 @@
           {
             "id": "3_seat_3_1",
             "seatNumber": 1,
+            "seatInfo": "Reihe 3, Platz 1",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_2",
             "seatNumber": 2,
+            "seatInfo": "Reihe 3, Platz 2",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_3",
             "seatNumber": 3,
+            "seatInfo": "Reihe 3, Platz 3",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_4",
             "seatNumber": 4,
+            "seatInfo": "Reihe 3, Platz 4",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_5",
             "seatNumber": 5,
+            "seatInfo": "Reihe 3, Platz 5",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_6",
             "seatNumber": 6,
+            "seatInfo": "Reihe 3, Platz 6",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_7",
             "seatNumber": 7,
+            "seatInfo": "Reihe 3, Platz 7",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_8",
             "seatNumber": 8,
+            "seatInfo": "Reihe 3, Platz 8",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_9",
             "seatNumber": 9,
+            "seatInfo": "Reihe 3, Platz 9",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_10",
             "seatNumber": 10,
+            "seatInfo": "Reihe 3, Platz 10",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_11",
             "seatNumber": 11,
+            "seatInfo": "Reihe 3, Platz 11",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_12",
             "seatNumber": 12,
+            "seatInfo": "Reihe 3, Platz 12",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_13",
             "seatNumber": 13,
+            "seatInfo": "Reihe 3, Platz 13",
             "status": "AVAILABLE"
           },
           {
             "id": "3_seat_3_14",
             "seatNumber": 14,
+            "seatInfo": "Reihe 3, Platz 14",
             "status": "AVAILABLE"
           }
         ]

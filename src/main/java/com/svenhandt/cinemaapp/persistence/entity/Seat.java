@@ -16,6 +16,8 @@ public class Seat {
 
     private int seatNumber;
 
+    private String seatInfo;
+
     @ManyToOne
     @JoinColumn(name="room_id")
     private Room room;
